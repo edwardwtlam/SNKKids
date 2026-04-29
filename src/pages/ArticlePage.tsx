@@ -200,7 +200,7 @@ export default function ArticlePage() {
               {cfg.emoji} {CATEGORY_LABELS[article.category]}
             </span>
             <span className="px-3 py-1.5 rounded-full text-xs font-black bg-white/25 text-white backdrop-blur-sm">
-              {article.language === 'zh' ? '🇨🇳 中文' : '🇬🇧 English'}
+              {article.language === 'zh' ? '🇭🇰 中文' : '🇬🇧 English'}
             </span>
             {topicLabel && (
               <span className="px-3 py-1.5 rounded-full text-xs font-black bg-white/25 text-white backdrop-blur-sm">

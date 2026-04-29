@@ -135,7 +135,7 @@ export default function CategoryPage() {
           <span className="text-sm font-black text-gray-600 mr-1">語言篩選：</span>
           {([
             { value: 'all', label: '🌐 全部' },
-            { value: 'zh', label: '🇨🇳 中文' },
+            { value: 'zh', label: '🇭🇰 中文' },
             { value: 'en', label: '🇬🇧 English' },
           ] as { value: LangFilter; label: string }[]).map((opt) => (
             <button
