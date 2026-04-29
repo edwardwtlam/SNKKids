@@ -44,11 +44,11 @@ Your task is to rewrite news articles into kid-friendly content with the followi
      "title_en": "Catchy kid-friendly title in English",
      "preview_text_zh": "First 2 lines summary in Chinese (max 80 chars)",
      "preview_text_en": "First 2 lines summary in English (max 120 chars)",
-     "perspective_a_title_zh": "Perspective A title in Chinese (e.g., '從科技發展的角度看')",
+     "perspective_a_title_zh": "Perspective A title in Chinese",
      "perspective_a_title_en": "Perspective A title in English",
      "perspective_a_content_zh": "Full Perspective A content in Chinese (200-300 chars)",
      "perspective_a_content_en": "Full Perspective A content in English (200-300 words)",
-     "perspective_b_title_zh": "Perspective B title in Chinese (e.g., '從環境保護的角度看')",
+     "perspective_b_title_zh": "Perspective B title in Chinese",
      "perspective_b_title_en": "Perspective B title in English",
      "perspective_b_content_zh": "Full Perspective B content in Chinese (200-300 chars)",
      "perspective_b_content_en": "Full Perspective B content in English (200-300 words)",
@@ -61,8 +61,6 @@ Your task is to rewrite news articles into kid-friendly content with the followi
      "topic_area": "one of: science, environment, society, health, growth, animals, space, tech, history, conservation, food, transport, education, charity, sports, culture, arts, finance, inspiring, future",
      "is_safe": true
    }
-
-   If the content is NOT safe for children, set is_safe to false and still return the JSON with placeholder text explaining why it was filtered.
 
 IMPORTANT: You MUST return ONLY valid JSON. No markdown, no code fences, no extra text.`;
 
@@ -79,16 +77,8 @@ interface DeepSeekResponse {
   perspective_b_title_en: string;
   perspective_b_content_zh: string;
   perspective_b_content_en: string;
-  vocabulary: Array<{
-    word_zh: string;
-    word_en: string;
-    explanation_zh: string;
-    explanation_en: string;
-  }>;
-  questions: Array<{
-    question_zh: string;
-    question_en: string;
-  }>;
+  vocabulary: Array<{ word_zh: string; word_en: string; explanation_zh: string; explanation_en: string }>;
+  questions: Array<{ question_zh: string; question_en: string }>;
   topic_area: string;
   is_safe: boolean;
 }
@@ -163,14 +153,11 @@ Deno.serve(async (req: Request) => {
   }
 
   try {
-    // Get API key from environment, custom header, or request body
     let apiKey = (Deno.env.get("DEEPSEEK_API_KEY") || "").trim();
 
-    // Try custom header first
     const headerKey = req.headers.get("X-DeepSeek-Key");
     if (headerKey) apiKey = headerKey.trim();
 
-    // Fallback to request body
     if (!apiKey && req.method === "POST") {
       try {
         const body = await req.json();
@@ -180,19 +167,13 @@ Deno.serve(async (req: Request) => {
       }
     }
 
-    // Debug: log key length and last 4 chars
-    const keyDebug = `key_len=${apiKey.length} last4=${apiKey.slice(-4)}`;
-
     if (!apiKey) {
       return new Response(
         JSON.stringify({
           success: false,
-          error: "DEEPSEEK_API_KEY not configured. Set it as an environment variable or pass api_key in the POST body.",
+          error: "DEEPSEEK_API_KEY not configured. Set it as an environment variable or pass via X-DeepSeek-Key header.",
         }),
-        {
-          status: 400,
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
-        }
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
@@ -206,12 +187,10 @@ Deno.serve(async (req: Request) => {
       for (const language of ["zh", "en"] as const) {
         try {
           const topic = await generateEvergreenTopic(category.key);
-
           const langInstruction = language === "zh"
-            ? "Write the article in Traditional Chinese (繁體中文). All content fields ending with _zh should be in Traditional Chinese."
+            ? "Write the article in Traditional Chinese. All content fields ending with _zh should be in Traditional Chinese."
             : "Write the article in English. All content fields ending with _en should be in English.";
-
-          const prompt = `Category: ${category.label_zh}\nLanguage: ${langInstruction}\n\nTopic/Source material: ${topic}\n\nGenerate a kid-friendly news article about this topic. Remember to include two different perspectives, vocabulary, and questions. Return ONLY valid JSON.`;
+          const prompt = `Category: ${category.label_zh}\nLanguage: ${langInstruction}\n\nTopic: ${topic}\n\nGenerate a kid-friendly news article. Include two perspectives, vocabulary, and questions. Return ONLY valid JSON.`;
 
           const result = await callDeepSeek(apiKey, prompt);
 
@@ -245,16 +224,11 @@ Deno.serve(async (req: Request) => {
             results.push({ category: category.key, language, status: "success" });
           }
         } catch (err) {
-          results.push({
-            category: category.key,
-            language,
-            status: `error: ${err instanceof Error ? err.message : "unknown"}`,
-          });
+          results.push({ category: category.key, language, status: `error: ${err instanceof Error ? err.message : "unknown"}` });
         }
       }
     }
 
-    // Mark one article as featured
     const { data: todayArticles } = await supabase
       .from("articles")
       .select("id")
@@ -262,28 +236,17 @@ Deno.serve(async (req: Request) => {
       .limit(1);
 
     if (todayArticles && todayArticles.length > 0) {
-      await supabase
-        .from("articles")
-        .update({ is_featured: true })
-        .eq("id", todayArticles[0].id);
+      await supabase.from("articles").update({ is_featured: true }).eq("id", todayArticles[0].id);
     }
 
     return new Response(
       JSON.stringify({ success: true, results }),
-      {
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      }
+      { headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   } catch (error) {
     return new Response(
-      JSON.stringify({
-        success: false,
-        error: error instanceof Error ? error.message : "Unknown error",
-      }),
-      {
-        status: 500,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      }
+      JSON.stringify({ success: false, error: error instanceof Error ? error.message : "Unknown error" }),
+      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   }
 });
