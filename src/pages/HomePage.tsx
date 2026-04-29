@@ -90,9 +90,9 @@ export default function HomePage() {
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#FFF9F0' }}>
       <Helmet>
-        <title>SNK Kids 小小新聞通 | 香港小學生雙語新聞平台</title>
-        <meta name="description" content="SNK Kids 小小新聞通 — 每日精選香港、中國及國際新聞，中英雙語，培養批判性思維。專為8至14歲香港小學生設計。" />
-        <meta property="og:title" content="SNK Kids 小小新聞通 | 香港小學生雙語新聞平台" />
+        <title>SNK Kids | 香港小學生雙語新聞平台</title>
+        <meta name="description" content="SNK Kids 每日精選香港、中國及國際新聞，中英雙語，培養批判性思維。專為8至14歲香港小學生設計。" />
+        <meta property="og:title" content="SNK Kids | 香港小學生雙語新聞平台" />
         <meta property="og:description" content="每日精選香港、中國及國際新聞，中英雙語，培養批判性思維。" />
         <meta property="og:url" content="https://www.snkkids.com/" />
         <link rel="canonical" href="https://www.snkkids.com/" />

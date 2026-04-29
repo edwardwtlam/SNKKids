@@ -165,8 +165,8 @@ export default function ArticlePage() {
   }
 
   const cfg = CATEGORY_CONFIG[article.category] || CATEGORY_CONFIG.international;
-  const seoTitle = `${article.title} | SNK Kids 小小新聞通`;
-  const seoDesc = article.preview_text ? article.preview_text.slice(0, 160) : 'SNK Kids 小小新聞通 — 香港小學生雙語新聞平台';
+  const seoTitle = `${article.title} | SNK Kids`;
+  const seoDesc = article.preview_text ? article.preview_text.slice(0, 160) : 'SNK Kids 香港小學生雙語新聞平台';
   const topicLabel = TOPIC_AREA_LABELS[article.topic_area] || article.topic_area;
   const topicEmoji = TOPIC_EMOJIS[article.topic_area] || '📰';
 

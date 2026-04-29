@@ -85,9 +85,9 @@ export default function CategoryPage() {
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#FFF9F0' }}>
       <Helmet>
-        <title>{categoryTitle} | SNK Kids 小小新聞通</title>
-        <meta name="description" content={categoryDesc[category as string] || `SNK Kids 小小新聞通 — ${categoryTitle}新聞，中英雙語，培養批判性思維。`} />
-        <meta property="og:title" content={`${categoryTitle} | SNK Kids 小小新聞通`} />
+        <title>{categoryTitle} | SNK Kids</title>
+        <meta name="description" content={categoryDesc[category as string] || `SNK Kids ${categoryTitle}新聞，中英雙語，培養批判性思維。`} />
+        <meta property="og:title" content={`${categoryTitle} | SNK Kids`} />
         <meta property="og:description" content={categoryDesc[category as string] || `SNK Kids ${categoryTitle}新聞`} />
         <meta property="og:url" content={`https://www.snkkids.com/category/${category}`} />
         <link rel="canonical" href={`https://www.snkkids.com/category/${category}`} />

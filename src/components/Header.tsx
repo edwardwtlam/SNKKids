@@ -25,7 +25,7 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 group" aria-label="SNK Kids 小小新聞通 首頁">
+          <Link to="/" className="flex items-center gap-2 group" aria-label="SNK Kids 首頁">
             <img
               src="/SNKKids.png"
               alt="SNK Kids Logo"
@@ -35,7 +35,7 @@ export default function Header() {
               <span className="block text-lg font-black" style={{ color: '#EF4444', fontFamily: 'Nunito, sans-serif' }}>
                 SNK Kids
               </span>
-              <span className="block text-xs font-bold text-gray-400 -mt-0.5">小小新聞通</span>
+
             </div>
           </Link>
 

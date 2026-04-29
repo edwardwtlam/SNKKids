@@ -25,7 +25,7 @@ export default function Footer() {
               />
               <div>
                 <span className="block text-xl font-black text-white">SNK Kids</span>
-                <span className="block text-sm text-blue-300 font-medium">小小新聞通</span>
+
               </div>
             </div>
             <p className="text-sm text-purple-200 leading-relaxed">
@@ -94,7 +94,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs text-purple-300 font-medium">
-            © 2026 SNK Kids 小小新聞通. 所有內容僅供教育用途。
+            © 2026 SNK Kids. 所有內容僅供教育用途。
           </p>
           <p className="text-xs text-purple-300 font-medium flex items-center gap-1">
             以 ❤️ 為香港學生製作

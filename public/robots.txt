@@ -5,4 +5,4 @@ Disallow: /api/
 
 Sitemap: https://www.snkkids.com/sitemap.xml
 
-# SNK Kids 小小新聞通 - Hong Kong Bilingual Kids News Platform
+# SNK Kids - Hong Kong Bilingual Kids News Platform
