@@ -4,10 +4,7 @@ import { supabase } from '../lib/supabase';
 import { useAuth } from '../context/AuthContext';
 import type { ReadingHistoryItem, SavedVocabItem, Article } from '../lib/types';
 import { CATEGORY_LABELS, CATEGORY_COLORS } from '../lib/types';
-import {
-  User, BookOpen, Bookmark, Flame, Star, ArrowRight,
-  Trash2, Calendar, TrendingUp
-} from 'lucide-react';
+import { ArrowRight, Trash2 } from 'lucide-react';
 
 export default function DashboardPage() {
   const { user, profile } = useAuth();
@@ -51,175 +48,224 @@ export default function DashboardPage() {
   const points = profile?.total_points || 0;
   const todayCount = profile?.articles_read_today || 0;
 
+  const getStreakEmoji = (s: number) => {
+    if (s >= 30) return '🏆';
+    if (s >= 14) return '🔥';
+    if (s >= 7) return '⚡';
+    if (s >= 3) return '✨';
+    return '🌱';
+  };
+
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="bg-gradient-to-r from-teal-500 to-cyan-500">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="flex items-center gap-4">
-            <div className="w-16 h-16 rounded-2xl bg-white/20 flex items-center justify-center">
-              <User className="w-8 h-8 text-white" />
+    <div className="min-h-screen" style={{ backgroundColor: '#FFF9F0' }}>
+      {/* Hero Header */}
+      <div
+        className="relative overflow-hidden py-10 px-4"
+        style={{ background: 'linear-gradient(135deg, #7C3AED, #EC4899)' }}
+      >
+        <div className="absolute -top-8 -left-8 w-32 h-32 rounded-full bg-white/10" />
+        <div className="absolute -bottom-12 -right-8 w-48 h-48 rounded-full bg-white/10" />
+        <div className="absolute top-1/2 left-1/3 w-20 h-20 rounded-full bg-yellow-300/15" />
+
+        <div className="max-w-4xl mx-auto relative z-10">
+          <div className="flex items-center gap-4 mb-6">
+            <div
+              className="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl bg-white/20 backdrop-blur-sm"
+              style={{ boxShadow: '0 4px 0 0 rgba(0,0,0,0.15)' }}
+            >
+              👤
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-white">{profile?.username || '我的帳戶'}</h1>
-              <p className="text-teal-100 text-sm">{user.email}</p>
+              <h1 className="text-2xl font-black text-white">{profile?.username || '我的帳戶'}</h1>
+              <p className="text-purple-200 text-sm font-medium">{user.email}</p>
             </div>
           </div>
 
-          <div className="grid grid-cols-3 gap-4 mt-6">
-            <div className="bg-white/15 rounded-xl p-4 backdrop-blur-sm">
-              <div className="flex items-center gap-2 mb-1">
-                <Flame className="w-5 h-5 text-amber-300" />
-                <span className="text-xs text-teal-100">連續閱讀</span>
+          {/* Stats Grid */}
+          <div className="grid grid-cols-3 gap-3">
+            {[
+              {
+                icon: getStreakEmoji(streak),
+                label: '連續閱讀',
+                value: `${streak}天`,
+                bg: 'bg-white/15',
+              },
+              {
+                icon: '⭐',
+                label: '總積分',
+                value: `${points}分`,
+                bg: 'bg-white/15',
+              },
+              {
+                icon: '📖',
+                label: '今日閱讀',
+                value: `${todayCount}篇`,
+                bg: 'bg-white/15',
+              },
+            ].map((stat) => (
+              <div
+                key={stat.label}
+                className={`${stat.bg} backdrop-blur-sm rounded-2xl p-4 text-center`}
+              >
+                <div className="text-2xl mb-1">{stat.icon}</div>
+                <div className="text-xs text-purple-200 font-medium mb-0.5">{stat.label}</div>
+                <div className="text-xl font-black text-white">{stat.value}</div>
               </div>
-              <p className="text-2xl font-bold text-white">{streak} <span className="text-sm font-normal text-teal-100">天</span></p>
-            </div>
-            <div className="bg-white/15 rounded-xl p-4 backdrop-blur-sm">
-              <div className="flex items-center gap-2 mb-1">
-                <Star className="w-5 h-5 text-amber-300" />
-                <span className="text-xs text-teal-100">總積分</span>
-              </div>
-              <p className="text-2xl font-bold text-white">{points}</p>
-            </div>
-            <div className="bg-white/15 rounded-xl p-4 backdrop-blur-sm">
-              <div className="flex items-center gap-2 mb-1">
-                <BookOpen className="w-5 h-5 text-amber-300" />
-                <span className="text-xs text-teal-100">今日閱讀</span>
-              </div>
-              <p className="text-2xl font-bold text-white">{todayCount} <span className="text-sm font-normal text-teal-100">篇</span></p>
-            </div>
+            ))}
           </div>
 
+          {/* Encouragement Banner */}
           {todayCount > 0 && (
-            <div className="mt-4 bg-amber-400/20 rounded-xl p-3 border border-amber-300/30">
-              <p className="text-sm text-amber-100 font-medium">
+            <div
+              className="mt-4 rounded-2xl p-3 flex items-center gap-3"
+              style={{ background: 'rgba(251, 191, 36, 0.2)', border: '2px solid rgba(251, 191, 36, 0.3)' }}
+            >
+              <span className="text-2xl">🎉</span>
+              <p className="text-sm text-yellow-100 font-bold">
                 {todayCount >= 5
-                  ? '太棒了！你今天已經閱讀了' + todayCount + '篇文章！繼續保持！'
-                  : '你今天已經閱讀了' + todayCount + '篇文章！再讀多一點吧！'}
+                  ? `太棒了！你今天已閱讀了 ${todayCount} 篇文章！繼續保持！`
+                  : `你今天已閱讀了 ${todayCount} 篇文章！再讀多一點吧！`}
               </p>
             </div>
           )}
         </div>
+
+        <div className="absolute bottom-0 left-0 right-0 overflow-hidden leading-none">
+          <svg viewBox="0 0 1440 40" xmlns="http://www.w3.org/2000/svg" className="w-full block" style={{ fill: '#FFF9F0' }}>
+            <path d="M0,20 C360,40 1080,0 1440,20 L1440,40 L0,40 Z" />
+          </svg>
+        </div>
       </div>
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex gap-1 border-b border-gray-200 mt-6">
-          <button
-            onClick={() => setActiveTab('history')}
-            className={`px-5 py-3 text-sm font-medium border-b-2 transition-colors ${
-              activeTab === 'history'
-                ? 'border-teal-500 text-teal-600'
-                : 'border-transparent text-gray-500 hover:text-gray-700'
-            }`}
-          >
-            <span className="flex items-center gap-2">
-              <BookOpen className="w-4 h-4" />
-              閱讀紀錄
-            </span>
-          </button>
-          <button
-            onClick={() => setActiveTab('vocabulary')}
-            className={`px-5 py-3 text-sm font-medium border-b-2 transition-colors ${
-              activeTab === 'vocabulary'
-                ? 'border-teal-500 text-teal-600'
-                : 'border-transparent text-gray-500 hover:text-gray-700'
-            }`}
-          >
-            <span className="flex items-center gap-2">
-              <Bookmark className="w-4 h-4" />
-              我的詞彙
-            </span>
-          </button>
+      {/* Tab Bar */}
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+        <div className="flex gap-2">
+          {[
+            { key: 'history', icon: '📖', label: '閱讀紀錄' },
+            { key: 'vocabulary', icon: '📚', label: '我的詞彙' },
+          ].map((tab) => (
+            <button
+              key={tab.key}
+              onClick={() => setActiveTab(tab.key as typeof activeTab)}
+              className="flex items-center gap-2 px-5 py-3 rounded-2xl text-sm font-black transition-all hover:scale-105 active:scale-95"
+              style={
+                activeTab === tab.key
+                  ? { background: 'linear-gradient(135deg, #7C3AED, #EC4899)', color: 'white', boxShadow: '0 4px 0 0 #5B21B6' }
+                  : { background: 'white', color: '#6B7280', border: '2px solid #E5E7EB' }
+              }
+            >
+              <span>{tab.icon}</span>
+              {tab.label}
+            </button>
+          ))}
         </div>
+      </div>
 
-        <div className="py-6">
-          {loading ? (
-            <div className="flex items-center justify-center py-16">
-              <div className="w-6 h-6 border-2 border-teal-500 border-t-transparent rounded-full animate-spin" />
-            </div>
-          ) : activeTab === 'history' ? (
-            readingHistory.length === 0 ? (
-              <div className="text-center py-16">
-                <BookOpen className="w-12 h-12 text-gray-200 mx-auto mb-3" />
-                <p className="text-gray-400 text-sm">還沒有閱讀紀錄</p>
-                <Link to="/" className="text-sm text-teal-600 font-medium mt-2 inline-block">
-                  開始閱讀
-                </Link>
-              </div>
-            ) : (
-              <div className="space-y-3">
-                {readingHistory.map((item) => {
-                  const article = item.articles as unknown as Article;
-                  if (!article) return null;
-                  const colors = CATEGORY_COLORS[article.category];
-                  return (
-                    <Link
-                      key={item.id}
-                      to={`/article/${article.id}`}
-                      className="flex items-center gap-4 p-4 bg-white rounded-xl border border-gray-100 hover:border-gray-200 hover:shadow-sm transition-all"
-                    >
-                      <div className={`w-10 h-10 rounded-lg ${colors.light} flex items-center justify-center shrink-0`}>
-                        <TrendingUp className={`w-5 h-5 ${colors.text}`} />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-gray-800 truncate">{article.title}</p>
-                        <div className="flex items-center gap-2 mt-1">
-                          <span className={`text-xs ${colors.text}`}>{CATEGORY_LABELS[article.category]}</span>
-                          <span className="text-xs text-gray-400">
-                            {article.language === 'zh' ? '中文' : 'English'}
-                          </span>
-                        </div>
-                      </div>
-                      <div className="text-right shrink-0">
-                        <p className="text-xs text-gray-400">
-                          <Calendar className="w-3 h-3 inline mr-1" />
-                          {new Date(item.read_at).toLocaleDateString('zh-HK')}
-                        </p>
-                      </div>
-                      <ArrowRight className="w-4 h-4 text-gray-300" />
-                    </Link>
-                  );
-                })}
-              </div>
-            )
-          ) : savedVocab.length === 0 ? (
-            <div className="text-center py-16">
-              <Bookmark className="w-12 h-12 text-gray-200 mx-auto mb-3" />
-              <p className="text-gray-400 text-sm">還沒有收藏的詞彙</p>
-              <p className="text-xs text-gray-300 mt-1">閱讀文章時按書籤圖標即可收藏</p>
+      {/* Tab Content */}
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        {loading ? (
+          <div className="flex flex-col items-center justify-center py-16">
+            <div className="text-5xl mb-4 animate-bounce">📚</div>
+            <div className="spinner-fun mb-3" />
+            <p className="text-gray-500 font-bold">載入中...</p>
+          </div>
+        ) : activeTab === 'history' ? (
+          readingHistory.length === 0 ? (
+            <div className="text-center py-16 rounded-3xl bg-white" style={{ border: '2px dashed #E5E7EB' }}>
+              <div className="text-5xl mb-4">📭</div>
+              <p className="text-gray-500 font-bold text-lg">還沒有閱讀紀錄</p>
+              <p className="text-gray-400 text-sm mt-1">快去閱讀你的第一篇文章吧！</p>
+              <Link
+                to="/"
+                className="inline-flex items-center gap-2 mt-5 px-6 py-3 rounded-2xl font-black text-white transition-all hover:scale-105"
+                style={{ background: 'linear-gradient(135deg, #7C3AED, #EC4899)', boxShadow: '0 4px 0 0 #5B21B6' }}
+              >
+                🚀 開始閱讀
+              </Link>
             </div>
           ) : (
             <div className="space-y-3">
-              {savedVocab.map((item) => (
-                <div
-                  key={item.id}
-                  className="flex items-start gap-4 p-4 bg-white rounded-xl border border-gray-100"
-                >
-                  <div className="w-10 h-10 rounded-lg bg-teal-50 flex items-center justify-center shrink-0">
-                    <Bookmark className="w-5 h-5 text-teal-500" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="text-base font-bold text-teal-600">{item.word_zh}</span>
-                      <span className="text-sm text-gray-500">{item.word_en}</span>
-                    </div>
-                    <p className="text-sm text-gray-600">{item.explanation_zh}</p>
-                    <p className="text-xs text-gray-400 mt-1">{item.explanation_en}</p>
-                    <p className="text-xs text-gray-300 mt-2">
-                      來自：{item.articles?.title || '未知文章'}
-                    </p>
-                  </div>
-                  <button
-                    onClick={() => deleteVocab(item.id)}
-                    className="p-1.5 rounded-lg hover:bg-red-50 text-gray-300 hover:text-red-500 transition-colors shrink-0"
+              {readingHistory.map((item) => {
+                const article = item.articles as unknown as Article;
+                if (!article) return null;
+                const colors = CATEGORY_COLORS[article.category];
+                const catEmojis: Record<string, string> = { hong_kong: '🦁', china: '🐉', international: '🌍' };
+                return (
+                  <Link
+                    key={item.id}
+                    to={`/article/${article.id}`}
+                    className="flex items-center gap-4 p-4 bg-white rounded-2xl transition-all hover:scale-[1.01]"
+                    style={{ boxShadow: '0 2px 12px rgba(0,0,0,0.06)', border: '2px solid #F3F4F6' }}
                   >
-                    <Trash2 className="w-4 h-4" />
-                  </button>
-                </div>
-              ))}
+                    <div
+                      className={`w-11 h-11 rounded-2xl ${colors.light} flex items-center justify-center text-xl shrink-0`}
+                    >
+                      {catEmojis[article.category] || '📰'}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-bold text-gray-800 truncate">{article.title}</p>
+                      <div className="flex items-center gap-2 mt-1">
+                        <span className={`text-xs font-bold ${colors.text}`}>{CATEGORY_LABELS[article.category]}</span>
+                        <span className="text-xs text-gray-400">
+                          {article.language === 'zh' ? '中文' : 'English'}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="text-right shrink-0">
+                      <p className="text-xs text-gray-400 font-medium">
+                        {new Date(item.read_at).toLocaleDateString('zh-HK')}
+                      </p>
+                    </div>
+                    <ArrowRight className="w-4 h-4 text-gray-300 shrink-0" />
+                  </Link>
+                );
+              })}
             </div>
-          )}
-        </div>
+          )
+        ) : savedVocab.length === 0 ? (
+          <div className="text-center py-16 rounded-3xl bg-white" style={{ border: '2px dashed #E5E7EB' }}>
+            <div className="text-5xl mb-4">🔖</div>
+            <p className="text-gray-500 font-bold text-lg">還沒有收藏的詞彙</p>
+            <p className="text-gray-400 text-sm mt-1">閱讀文章時按書籤圖標即可收藏</p>
+          </div>
+        ) : (
+          <div className="space-y-3">
+            {savedVocab.map((item) => (
+              <div
+                key={item.id}
+                className="flex items-start gap-4 p-4 bg-white rounded-2xl"
+                style={{ boxShadow: '0 2px 12px rgba(0,0,0,0.06)', border: '2px solid #F0FDF4' }}
+              >
+                <div
+                  className="w-11 h-11 rounded-2xl flex items-center justify-center text-xl shrink-0"
+                  style={{ background: 'linear-gradient(135deg, #10B981, #06B6D4)' }}
+                >
+                  📖
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-base font-black text-teal-600">{item.word_zh}</span>
+                    <span className="text-sm text-gray-500 font-medium">{item.word_en}</span>
+                  </div>
+                  <p className="text-sm text-gray-600 font-medium">{item.explanation_zh}</p>
+                  <p className="text-xs text-gray-400 mt-1">{item.explanation_en}</p>
+                  <p className="text-xs text-gray-300 mt-2 font-medium">
+                    📰 來自：{item.articles?.title || '未知文章'}
+                  </p>
+                </div>
+                <button
+                  onClick={() => deleteVocab(item.id)}
+                  className="p-2 rounded-xl hover:bg-red-50 text-gray-300 hover:text-red-500 transition-colors shrink-0"
+                >
+                  <Trash2 className="w-4 h-4" />
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
+
+      <div className="h-8" />
     </div>
   );
 }

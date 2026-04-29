@@ -1,5 +1,5 @@
-import { X, BookOpen } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { X } from 'lucide-react';
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -11,40 +11,78 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 animate-in">
+      {/* Backdrop */}
+      <div
+        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+        onClick={onClose}
+      />
+
+      {/* Modal */}
+      <div
+        className="relative bg-white rounded-3xl p-8 max-w-sm w-full text-center animate-in"
+        style={{ boxShadow: '0 20px 60px rgba(0,0,0,0.2)' }}
+      >
+        {/* Close button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 p-1 rounded-lg text-gray-400 hover:bg-gray-100 hover:text-gray-600 transition-colors"
+          className="absolute top-4 right-4 p-2 rounded-xl text-gray-400 hover:bg-gray-100 hover:text-gray-600 transition-colors"
         >
           <X className="w-5 h-5" />
         </button>
 
-        <div className="text-center">
-          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-teal-500 to-cyan-500 flex items-center justify-center mx-auto mb-5 shadow-lg">
-            <BookOpen className="w-8 h-8 text-white" />
-          </div>
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">繼續閱讀全文</h2>
-          <p className="text-gray-500 mb-8 leading-relaxed">
-            免費註冊或登入以閱讀全文，還可以收藏詞彙、記錄閱讀進度！
-          </p>
+        {/* Icon */}
+        <div
+          className="w-20 h-20 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-5"
+          style={{ background: 'linear-gradient(135deg, #7C3AED, #EC4899)', boxShadow: '0 6px 0 0 #5B21B6' }}
+        >
+          🔐
+        </div>
 
-          <div className="space-y-3">
-            <Link
-              to="/signup"
-              onClick={onClose}
-              className="block w-full py-3 rounded-xl bg-gradient-to-r from-teal-500 to-cyan-500 text-white font-semibold text-center shadow-md hover:shadow-lg transition-shadow"
+        {/* Content */}
+        <h2 className="text-2xl font-black text-gray-800 mb-2">
+          登入後才能閱讀！
+        </h2>
+        <p className="text-gray-500 text-sm leading-relaxed mb-6 font-medium">
+          免費加入小小新聞通，解鎖所有文章，追蹤閱讀進度，收藏喜愛的詞彙！
+        </p>
+
+        {/* Perks */}
+        <div className="grid grid-cols-2 gap-2 mb-6">
+          {[
+            { icon: '📰', text: '無限閱讀' },
+            { icon: '📊', text: '追蹤進度' },
+            { icon: '🔖', text: '收藏詞彙' },
+            { icon: '🏆', text: '積分獎勵' },
+          ].map((perk) => (
+            <div
+              key={perk.text}
+              className="flex items-center gap-2 px-3 py-2 rounded-2xl text-xs font-bold text-gray-600"
+              style={{ background: '#F5F3FF', border: '2px solid #EDE9FE' }}
             >
-              免費註冊
-            </Link>
-            <Link
-              to="/login"
-              onClick={onClose}
-              className="block w-full py-3 rounded-xl border-2 border-gray-200 text-gray-700 font-semibold text-center hover:bg-gray-50 transition-colors"
-            >
-              登入
-            </Link>
-          </div>
+              <span>{perk.icon}</span>
+              {perk.text}
+            </div>
+          ))}
+        </div>
+
+        {/* CTA Buttons */}
+        <div className="space-y-3">
+          <Link
+            to="/signup"
+            onClick={onClose}
+            className="block w-full py-3 rounded-2xl font-black text-white text-sm transition-all hover:scale-105 active:scale-95"
+            style={{ background: 'linear-gradient(135deg, #7C3AED, #EC4899)', boxShadow: '0 4px 0 0 #5B21B6' }}
+          >
+            🎉 免費註冊
+          </Link>
+          <Link
+            to="/login"
+            onClick={onClose}
+            className="block w-full py-3 rounded-2xl font-black text-purple-700 text-sm transition-all hover:bg-purple-50"
+            style={{ border: '2px solid #DDD6FE' }}
+          >
+            已有帳號？登入
+          </Link>
         </div>
       </div>
     </div>
