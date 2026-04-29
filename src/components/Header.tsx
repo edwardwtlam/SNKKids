@@ -20,28 +20,27 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 bg-white shadow-md" style={{ borderBottom: '3px solid #7C3AED' }}>
       {/* Top rainbow stripe */}
-      <div className="h-1.5 w-full" style={{ background: 'linear-gradient(to right, #7C3AED, #EC4899, #F97316, #F59E0B, #10B981, #06B6D4)' }} />
+      <div className="h-1.5 w-full" style={{ background: 'linear-gradient(to right, #EF4444, #3B82F6, #F97316, #F59E0B, #10B981, #8B5CF6)' }} />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 group">
-            <div
-              className="w-10 h-10 rounded-2xl flex items-center justify-center text-white text-lg font-black shadow-md transition-transform group-hover:scale-110"
-              style={{ background: 'linear-gradient(135deg, #7C3AED, #EC4899)' }}
-            >
-              📰
-            </div>
+          <Link to="/" className="flex items-center gap-2 group" aria-label="SNK Kids 小小新聞通 首頁">
+            <img
+              src="/SNKKids.png"
+              alt="SNK Kids Logo"
+              className="w-12 h-12 object-contain transition-transform group-hover:scale-110"
+            />
             <div className="leading-tight">
-              <span className="block text-lg font-black" style={{ color: '#7C3AED', fontFamily: 'Nunito, sans-serif' }}>
-                小小新聞通
+              <span className="block text-lg font-black" style={{ color: '#EF4444', fontFamily: 'Nunito, sans-serif' }}>
+                SNK Kids
               </span>
-              <span className="block text-xs font-bold text-gray-400 -mt-0.5">SNK Kids News</span>
+              <span className="block text-xs font-bold text-gray-400 -mt-0.5">小小新聞通</span>
             </div>
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-1">
+          <nav className="hidden md:flex items-center gap-1" aria-label="主要導航">
             {navLinks.map((link) => (
               <Link
                 key={link.to}
@@ -49,9 +48,10 @@ export default function Header() {
                 className={`px-4 py-2 rounded-2xl text-sm font-bold transition-all duration-200 ${
                   isActive(link.to)
                     ? 'text-white shadow-md'
-                    : 'text-gray-600 hover:bg-purple-50 hover:text-purple-700'
+                    : 'text-gray-600 hover:bg-red-50 hover:text-red-600'
                 }`}
-                style={isActive(link.to) ? { background: 'linear-gradient(135deg, #7C3AED, #EC4899)' } : {}}
+                style={isActive(link.to) ? { background: 'linear-gradient(135deg, #EF4444, #3B82F6)' } : {}}
+                aria-current={isActive(link.to) ? 'page' : undefined}
               >
                 {link.label}
               </Link>
@@ -64,7 +64,7 @@ export default function Header() {
               <>
                 <Link
                   to="/dashboard"
-                  className="flex items-center gap-2 px-3 py-2 rounded-2xl text-sm font-bold text-purple-700 bg-purple-50 hover:bg-purple-100 transition-colors"
+                  className="flex items-center gap-2 px-3 py-2 rounded-2xl text-sm font-bold text-red-700 bg-red-50 hover:bg-red-100 transition-colors"
                 >
                   <User className="w-4 h-4" />
                   <span>{profile?.username || '我的帳戶'}</span>
@@ -86,14 +86,14 @@ export default function Header() {
               <>
                 <Link
                   to="/login"
-                  className="px-4 py-2 rounded-2xl text-sm font-bold text-purple-700 border-2 border-purple-200 hover:border-purple-400 hover:bg-purple-50 transition-all"
+                  className="px-4 py-2 rounded-2xl text-sm font-bold text-red-700 border-2 border-red-200 hover:border-red-400 hover:bg-red-50 transition-all"
                 >
                   登入
                 </Link>
                 <Link
                   to="/signup"
                   className="px-4 py-2 rounded-2xl text-sm font-black text-white shadow-md transition-all hover:scale-105 active:scale-95"
-                  style={{ background: 'linear-gradient(135deg, #7C3AED, #EC4899)', boxShadow: '0 4px 0 0 #5B21B6' }}
+                  style={{ background: 'linear-gradient(135deg, #EF4444, #3B82F6)', boxShadow: '0 4px 0 0 #B91C1C' }}
                 >
                   免費註冊 🎉
                 </Link>
@@ -104,7 +104,9 @@ export default function Header() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden p-2 rounded-2xl text-purple-700 hover:bg-purple-50 transition-colors"
+            className="md:hidden p-2 rounded-2xl text-red-600 hover:bg-red-50 transition-colors"
+            aria-label={mobileOpen ? '關閉選單' : '開啟選單'}
+            aria-expanded={mobileOpen}
           >
             {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -113,7 +115,7 @@ export default function Header() {
 
       {/* Mobile Menu */}
       {mobileOpen && (
-        <div className="md:hidden border-t-2 border-purple-100 bg-white animate-in">
+        <div className="md:hidden border-t-2 border-red-100 bg-white">
           <div className="px-4 py-4 space-y-2">
             {navLinks.map((link) => (
               <Link
@@ -123,9 +125,9 @@ export default function Header() {
                 className={`block px-4 py-3 rounded-2xl text-sm font-bold transition-all ${
                   isActive(link.to)
                     ? 'text-white'
-                    : 'text-gray-700 hover:bg-purple-50 hover:text-purple-700'
+                    : 'text-gray-700 hover:bg-red-50 hover:text-red-600'
                 }`}
-                style={isActive(link.to) ? { background: 'linear-gradient(135deg, #7C3AED, #EC4899)' } : {}}
+                style={isActive(link.to) ? { background: 'linear-gradient(135deg, #EF4444, #3B82F6)' } : {}}
               >
                 {link.label}
               </Link>
@@ -136,7 +138,7 @@ export default function Header() {
                   <Link
                     to="/dashboard"
                     onClick={() => setMobileOpen(false)}
-                    className="block px-4 py-3 rounded-2xl text-sm font-bold text-purple-700 bg-purple-50"
+                    className="block px-4 py-3 rounded-2xl text-sm font-bold text-red-700 bg-red-50"
                   >
                     👤 我的帳戶
                   </Link>
@@ -152,7 +154,7 @@ export default function Header() {
                   <Link
                     to="/login"
                     onClick={() => setMobileOpen(false)}
-                    className="block px-4 py-3 rounded-2xl text-sm font-bold text-purple-700 border-2 border-purple-200 text-center"
+                    className="block px-4 py-3 rounded-2xl text-sm font-bold text-red-700 border-2 border-red-200 text-center"
                   >
                     登入
                   </Link>
@@ -160,7 +162,7 @@ export default function Header() {
                     to="/signup"
                     onClick={() => setMobileOpen(false)}
                     className="block px-4 py-3 rounded-2xl text-sm font-black text-white text-center"
-                    style={{ background: 'linear-gradient(135deg, #7C3AED, #EC4899)' }}
+                    style={{ background: 'linear-gradient(135deg, #EF4444, #3B82F6)' }}
                   >
                     免費註冊 🎉
                   </Link>

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { supabase } from '../lib/supabase';
 import { useAuth } from '../context/AuthContext';
 import ArticleCard from '../components/ArticleCard';
@@ -30,8 +31,8 @@ const CATEGORY_CONFIG = {
   },
   international: {
     emoji: '🌍',
-    gradient: 'linear-gradient(135deg, #7C3AED, #06B6D4)',
-    shadow: '0 4px 0 0 #5B21B6',
+    gradient: 'linear-gradient(135deg, #8B5CF6, #06B6D4)',
+    shadow: '0 4px 0 0 #6D28D9',
     bg: 'bg-purple-50',
     border: 'border-purple-200',
     text: 'text-purple-700',
@@ -88,12 +89,20 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#FFF9F0' }}>
+      <Helmet>
+        <title>SNK Kids 小小新聞通 | 香港小學生雙語新聞平台</title>
+        <meta name="description" content="SNK Kids 小小新聞通 — 每日精選香港、中國及國際新聞，中英雙語，培養批判性思維。專為8至14歲香港小學生設計。" />
+        <meta property="og:title" content="SNK Kids 小小新聞通 | 香港小學生雙語新聞平台" />
+        <meta property="og:description" content="每日精選香港、中國及國際新聞，中英雙語，培養批判性思維。" />
+        <meta property="og:url" content="https://www.snkkids.com/" />
+        <link rel="canonical" href="https://www.snkkids.com/" />
+      </Helmet>
       <AuthModal isOpen={authModalOpen} onClose={() => setAuthModalOpen(false)} />
 
       {/* Hero Banner */}
       <section
         className="relative overflow-hidden py-10 px-4"
-        style={{ background: 'linear-gradient(135deg, #7C3AED 0%, #EC4899 50%, #F97316 100%)' }}
+        style={{ background: 'linear-gradient(135deg, #EF4444 0%, #3B82F6 50%, #8B5CF6 100%)' }}
       >
         {/* Decorative blobs */}
         <div className="absolute top-0 left-0 w-48 h-48 rounded-full bg-white/10 -translate-x-1/2 -translate-y-1/2" />
@@ -107,7 +116,7 @@ export default function HomePage() {
             </div>
             <h1 className="text-3xl md:text-5xl font-black text-white mb-3 leading-tight">
               歡迎來到<br />
-              <span className="text-yellow-300">小小新聞通！</span>
+              <span className="text-yellow-300">SNK Kids！</span>
             </h1>
             <p className="text-white/85 text-base md:text-lg font-medium max-w-xl mx-auto">
               用簡單有趣的方式，帶你了解香港、中國和世界各地的最新消息 🌟
@@ -237,7 +246,7 @@ export default function HomePage() {
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
           <div
             className="rounded-3xl p-8 md:p-12 text-center relative overflow-hidden"
-            style={{ background: 'linear-gradient(135deg, #7C3AED, #EC4899)' }}
+            style={{ background: 'linear-gradient(135deg, #EF4444, #3B82F6)' }}
           >
             <div className="absolute -top-10 -left-10 w-40 h-40 rounded-full bg-white/10" />
             <div className="absolute -bottom-10 -right-10 w-48 h-48 rounded-full bg-white/10" />

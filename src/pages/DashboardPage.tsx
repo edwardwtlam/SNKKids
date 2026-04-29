@@ -61,7 +61,7 @@ export default function DashboardPage() {
       {/* Hero Header */}
       <div
         className="relative overflow-hidden py-10 px-4"
-        style={{ background: 'linear-gradient(135deg, #7C3AED, #EC4899)' }}
+        style={{ background: 'linear-gradient(135deg, #EF4444, #3B82F6)' }}
       >
         <div className="absolute -top-8 -left-8 w-32 h-32 rounded-full bg-white/10" />
         <div className="absolute -bottom-12 -right-8 w-48 h-48 rounded-full bg-white/10" />
@@ -77,7 +77,7 @@ export default function DashboardPage() {
             </div>
             <div>
               <h1 className="text-2xl font-black text-white">{profile?.username || '我的帳戶'}</h1>
-              <p className="text-purple-200 text-sm font-medium">{user.email}</p>
+              <p className="text-blue-200 text-sm font-medium">{user.email}</p>
             </div>
           </div>
 
@@ -108,7 +108,7 @@ export default function DashboardPage() {
                 className={`${stat.bg} backdrop-blur-sm rounded-2xl p-4 text-center`}
               >
                 <div className="text-2xl mb-1">{stat.icon}</div>
-                <div className="text-xs text-purple-200 font-medium mb-0.5">{stat.label}</div>
+                <div className="text-xs text-blue-200 font-medium mb-0.5">{stat.label}</div>
                 <div className="text-xl font-black text-white">{stat.value}</div>
               </div>
             ))}
@@ -150,7 +150,7 @@ export default function DashboardPage() {
               className="flex items-center gap-2 px-5 py-3 rounded-2xl text-sm font-black transition-all hover:scale-105 active:scale-95"
               style={
                 activeTab === tab.key
-                  ? { background: 'linear-gradient(135deg, #7C3AED, #EC4899)', color: 'white', boxShadow: '0 4px 0 0 #5B21B6' }
+                  ? { background: 'linear-gradient(135deg, #EF4444, #3B82F6)', color: 'white', boxShadow: '0 4px 0 0 #5B21B6' }
                   : { background: 'white', color: '#6B7280', border: '2px solid #E5E7EB' }
               }
             >
@@ -178,7 +178,7 @@ export default function DashboardPage() {
               <Link
                 to="/"
                 className="inline-flex items-center gap-2 mt-5 px-6 py-3 rounded-2xl font-black text-white transition-all hover:scale-105"
-                style={{ background: 'linear-gradient(135deg, #7C3AED, #EC4899)', boxShadow: '0 4px 0 0 #5B21B6' }}
+                style={{ background: 'linear-gradient(135deg, #EF4444, #3B82F6)', boxShadow: '0 4px 0 0 #5B21B6' }}
               >
                 🚀 開始閱讀
               </Link>

@@ -1,0 +1,33 @@
+{
+  "name": "SNK Kids 小小新聞通",
+  "short_name": "SNK Kids",
+  "description": "香港小學生雙語新聞平台 — 每日精選香港、中國及國際新聞，培養批判性思維",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFF9F0",
+  "theme_color": "#7C3AED",
+  "lang": "zh-HK",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/SNKKids.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/SNKKids.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["news", "education", "kids"],
+  "screenshots": [
+    {
+      "src": "/SNKKids.png",
+      "sizes": "600x600",
+      "type": "image/png"
+    }
+  ]
+}

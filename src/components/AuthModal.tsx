@@ -33,7 +33,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
         {/* Icon */}
         <div
           className="w-20 h-20 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-5"
-          style={{ background: 'linear-gradient(135deg, #7C3AED, #EC4899)', boxShadow: '0 6px 0 0 #5B21B6' }}
+          style={{ background: 'linear-gradient(135deg, #EF4444, #3B82F6)', boxShadow: '0 6px 0 0 #5B21B6' }}
         >
           🔐
         </div>
@@ -43,7 +43,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
           登入後才能閱讀！
         </h2>
         <p className="text-gray-500 text-sm leading-relaxed mb-6 font-medium">
-          免費加入小小新聞通，解鎖所有文章，追蹤閱讀進度，收藏喜愛的詞彙！
+          免費加入SNK Kids，解鎖所有文章，追蹤閱讀進度，收藏喜愛的詞彙！
         </p>
 
         {/* Perks */}
@@ -71,14 +71,14 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
             to="/signup"
             onClick={onClose}
             className="block w-full py-3 rounded-2xl font-black text-white text-sm transition-all hover:scale-105 active:scale-95"
-            style={{ background: 'linear-gradient(135deg, #7C3AED, #EC4899)', boxShadow: '0 4px 0 0 #5B21B6' }}
+            style={{ background: 'linear-gradient(135deg, #EF4444, #3B82F6)', boxShadow: '0 4px 0 0 #5B21B6' }}
           >
             🎉 免費註冊
           </Link>
           <Link
             to="/login"
             onClick={onClose}
-            className="block w-full py-3 rounded-2xl font-black text-purple-700 text-sm transition-all hover:bg-purple-50"
+            className="block w-full py-3 rounded-2xl font-black text-red-700 text-sm transition-all hover:bg-purple-50"
             style={{ border: '2px solid #DDD6FE' }}
           >
             已有帳號？登入

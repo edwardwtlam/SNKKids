@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 import { useAuth } from '../context/AuthContext';
@@ -22,8 +23,8 @@ const CATEGORY_CONFIG: Record<string, { emoji: string; gradient: string; shadow:
   },
   international: {
     emoji: '🌍',
-    gradient: 'linear-gradient(135deg, #7C3AED, #06B6D4)',
-    shadow: '0 4px 0 0 #5B21B6',
+    gradient: 'linear-gradient(135deg, #8B5CF6, #06B6D4)',
+    shadow: '0 4px 0 0 #6D28D9',
   },
 };
 
@@ -155,7 +156,7 @@ export default function ArticlePage() {
         <div className="text-center">
           <div className="text-5xl mb-4">😕</div>
           <p className="text-gray-500 font-bold text-lg">找不到文章</p>
-          <Link to="/" className="mt-4 inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl font-black text-white" style={{ background: 'linear-gradient(135deg, #7C3AED, #EC4899)' }}>
+          <Link to="/" className="mt-4 inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl font-black text-white" style={{ background: 'linear-gradient(135deg, #EF4444, #3B82F6)' }}>
             ← 返回首頁
           </Link>
         </div>
@@ -164,11 +165,22 @@ export default function ArticlePage() {
   }
 
   const cfg = CATEGORY_CONFIG[article.category] || CATEGORY_CONFIG.international;
+  const seoTitle = `${article.title} | SNK Kids 小小新聞通`;
+  const seoDesc = article.preview_text ? article.preview_text.slice(0, 160) : 'SNK Kids 小小新聞通 — 香港小學生雙語新聞平台';
   const topicLabel = TOPIC_AREA_LABELS[article.topic_area] || article.topic_area;
   const topicEmoji = TOPIC_EMOJIS[article.topic_area] || '📰';
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#FFF9F0' }}>
+      <Helmet>
+        <title>{seoTitle}</title>
+        <meta name="description" content={seoDesc} />
+        <meta property="og:title" content={seoTitle} />
+        <meta property="og:description" content={seoDesc} />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={"https://www.snkkids.com/article/" + id} />
+        <link rel="canonical" href={"https://www.snkkids.com/article/" + id} />
+      </Helmet>
       {/* Article Header */}
       <div className="relative overflow-hidden py-10 px-4" style={{ background: cfg.gradient }}>
         <div className="absolute -top-8 -left-8 w-32 h-32 rounded-full bg-white/10" />

@@ -11,22 +11,21 @@ export default function Footer() {
       </div>
 
       {/* Rainbow stripe */}
-      <div className="h-1.5 w-full" style={{ background: 'linear-gradient(to right, #7C3AED, #EC4899, #F97316, #F59E0B, #10B981, #06B6D4)' }} />
+      <div className="h-1.5 w-full" style={{ background: 'linear-gradient(to right, #EF4444, #3B82F6, #F97316, #F59E0B, #10B981, #8B5CF6)' }} />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           {/* Brand */}
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <div
-                className="w-10 h-10 rounded-2xl flex items-center justify-center text-xl"
-                style={{ background: 'linear-gradient(135deg, #7C3AED, #EC4899)' }}
-              >
-                📰
-              </div>
+              <img
+                src="/SNKKids.png"
+                alt="SNK Kids Logo"
+                className="w-14 h-14 object-contain"
+              />
               <div>
-                <span className="block text-lg font-black text-white">小小新聞通</span>
-                <span className="block text-xs text-purple-300 font-medium">SNK Kids News</span>
+                <span className="block text-xl font-black text-white">SNK Kids</span>
+                <span className="block text-sm text-blue-300 font-medium">小小新聞通</span>
               </div>
             </div>
             <p className="text-sm text-purple-200 leading-relaxed">
@@ -37,6 +36,7 @@ export default function Footer() {
                 <span
                   key={i}
                   className="w-9 h-9 rounded-xl flex items-center justify-center text-lg bg-white/10 hover:bg-white/20 transition-colors cursor-default"
+                  aria-hidden="true"
                 >
                   {emoji}
                 </span>
@@ -47,7 +47,7 @@ export default function Footer() {
           {/* Categories */}
           <div>
             <h3 className="text-sm font-black text-white mb-4 flex items-center gap-2">
-              <span className="w-6 h-6 rounded-lg flex items-center justify-center text-xs" style={{ background: 'linear-gradient(135deg, #7C3AED, #EC4899)' }}>📂</span>
+              <span className="w-6 h-6 rounded-lg flex items-center justify-center text-xs" style={{ background: 'linear-gradient(135deg, #EF4444, #3B82F6)' }}>📂</span>
               新聞分類
             </h3>
             <ul className="space-y-2">
@@ -73,7 +73,7 @@ export default function Footer() {
           <div>
             <h3 className="text-sm font-black text-white mb-4 flex items-center gap-2">
               <span className="w-6 h-6 rounded-lg flex items-center justify-center text-xs" style={{ background: 'linear-gradient(135deg, #F97316, #F59E0B)' }}>ℹ️</span>
-              關於我們
+              關於 SNK Kids
             </h3>
             <ul className="space-y-2">
               {[
@@ -83,7 +83,7 @@ export default function Footer() {
                 { icon: '🏆', text: '積分獎勵系統' },
               ].map((item) => (
                 <li key={item.text} className="flex items-center gap-2 text-sm text-purple-200 font-medium">
-                  <span>{item.icon}</span>
+                  <span aria-hidden="true">{item.icon}</span>
                   {item.text}
                 </li>
               ))}
@@ -94,7 +94,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs text-purple-300 font-medium">
-            © 2026 小小新聞通. 所有內容僅供教育用途。
+            © 2026 SNK Kids 小小新聞通. 所有內容僅供教育用途。
           </p>
           <p className="text-xs text-purple-300 font-medium flex items-center gap-1">
             以 ❤️ 為香港學生製作

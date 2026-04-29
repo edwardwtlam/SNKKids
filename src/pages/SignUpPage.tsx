@@ -45,12 +45,12 @@ export default function SignUpPage() {
           </div>
           <h1 className="text-3xl font-black text-gray-800 mb-3">註冊成功！</h1>
           <p className="text-gray-500 font-medium mb-8 leading-relaxed">
-            歡迎加入小小新聞通！<br />開始你的閱讀之旅，探索世界吧！🌍
+            歡迎加入 SNK Kids！<br />開始你的閱讀之旅，探索世界吧！🌍
           </p>
           <Link
             to="/"
             className="inline-flex items-center gap-2 px-8 py-3 rounded-2xl font-black text-white transition-all hover:scale-105 active:scale-95"
-            style={{ background: 'linear-gradient(135deg, #7C3AED, #EC4899)', boxShadow: '0 4px 0 0 #5B21B6' }}
+            style={{ background: 'linear-gradient(135deg, #EF4444, #3B82F6)', boxShadow: '0 4px 0 0 #5B21B6' }}
           >
             🚀 開始閱讀
           </Link>
@@ -62,7 +62,7 @@ export default function SignUpPage() {
   return (
     <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden" style={{ backgroundColor: '#FFF9F0' }}>
       {/* Background decorations */}
-      <div className="absolute top-0 right-0 w-64 h-64 rounded-full opacity-20" style={{ background: 'linear-gradient(135deg, #7C3AED, #EC4899)', transform: 'translate(40%, -40%)' }} />
+      <div className="absolute top-0 right-0 w-64 h-64 rounded-full opacity-20" style={{ background: 'linear-gradient(135deg, #EF4444, #3B82F6)', transform: 'translate(40%, -40%)' }} />
       <div className="absolute bottom-0 left-0 w-80 h-80 rounded-full opacity-20" style={{ background: 'linear-gradient(135deg, #10B981, #06B6D4)', transform: 'translate(-40%, 40%)' }} />
 
       <div className="w-full max-w-md relative z-10">
@@ -70,12 +70,12 @@ export default function SignUpPage() {
         <div className="text-center mb-8">
           <div
             className="w-20 h-20 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-4"
-            style={{ background: 'linear-gradient(135deg, #7C3AED, #EC4899)', boxShadow: '0 6px 0 0 #5B21B6' }}
+            style={{ background: 'linear-gradient(135deg, #EF4444, #3B82F6)', boxShadow: '0 6px 0 0 #B91C1C' }}
           >
             🌟
           </div>
           <h1 className="text-3xl font-black text-gray-800">免費加入！</h1>
-          <p className="text-gray-500 text-sm mt-2 font-medium">加入小小新聞通，探索世界 🌍</p>
+          <p className="text-gray-500 text-sm mt-2 font-medium">加入 SNK Kids，探索世界 🌍</p>
         </div>
 
         {/* Perks row */}
@@ -162,7 +162,7 @@ export default function SignUpPage() {
               type="submit"
               disabled={loading}
               className="w-full py-3 rounded-2xl font-black text-white text-sm transition-all hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
-              style={{ background: 'linear-gradient(135deg, #7C3AED, #EC4899)', boxShadow: '0 4px 0 0 #5B21B6' }}
+              style={{ background: 'linear-gradient(135deg, #EF4444, #3B82F6)', boxShadow: '0 4px 0 0 #5B21B6' }}
             >
               {loading ? '註冊中...' : '🎉 免費註冊'}
             </button>

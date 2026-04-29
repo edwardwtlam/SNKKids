@@ -24,7 +24,7 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden" style={{ backgroundColor: '#FFF9F0' }}>
       {/* Background decorations */}
-      <div className="absolute top-0 left-0 w-64 h-64 rounded-full opacity-20" style={{ background: 'linear-gradient(135deg, #7C3AED, #EC4899)', transform: 'translate(-50%, -50%)' }} />
+      <div className="absolute top-0 left-0 w-64 h-64 rounded-full opacity-20" style={{ background: 'linear-gradient(135deg, #EF4444, #3B82F6)', transform: 'translate(-50%, -50%)' }} />
       <div className="absolute bottom-0 right-0 w-80 h-80 rounded-full opacity-20" style={{ background: 'linear-gradient(135deg, #F97316, #F59E0B)', transform: 'translate(40%, 40%)' }} />
 
       <div className="w-full max-w-md relative z-10">
@@ -32,7 +32,7 @@ export default function LoginPage() {
         <div className="text-center mb-8">
           <div
             className="w-20 h-20 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-4"
-            style={{ background: 'linear-gradient(135deg, #7C3AED, #EC4899)', boxShadow: '0 6px 0 0 #5B21B6' }}
+            style={{ background: 'linear-gradient(135deg, #EF4444, #3B82F6)', boxShadow: '0 6px 0 0 #B91C1C' }}
           >
             👋
           </div>
@@ -93,7 +93,7 @@ export default function LoginPage() {
               type="submit"
               disabled={loading}
               className="w-full py-3 rounded-2xl font-black text-white text-sm transition-all hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
-              style={{ background: 'linear-gradient(135deg, #7C3AED, #EC4899)', boxShadow: '0 4px 0 0 #5B21B6' }}
+              style={{ background: 'linear-gradient(135deg, #EF4444, #3B82F6)', boxShadow: '0 4px 0 0 #5B21B6' }}
             >
               {loading ? '登入中...' : '🚀 登入'}
             </button>

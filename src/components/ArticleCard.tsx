@@ -24,10 +24,10 @@ const CATEGORY_FUN: Record<string, { gradient: string; shadow: string; emoji: st
     badge: 'bg-amber-100 text-amber-700',
   },
   international: {
-    gradient: 'linear-gradient(135deg, #7C3AED, #06B6D4)',
-    shadow: '0 4px 0 0 #5B21B6',
+    gradient: 'linear-gradient(135deg, #8B5CF6, #06B6D4)',
+    shadow: '0 4px 0 0 #6D28D9',
     emoji: '🌍',
-    badge: 'bg-purple-100 text-purple-700',
+    badge: 'bg-blue-100 text-blue-700',
   },
 };
 
@@ -83,7 +83,7 @@ export default function ArticleCard({ article, onReadMore, isLoggedIn, variant =
                   <Link
                     to={`/article/${article.id}`}
                     className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-white font-black text-sm transition-all hover:scale-105 active:scale-95"
-                    style={{ color: '#7C3AED', boxShadow: '0 4px 0 0 rgba(0,0,0,0.15)' }}
+                    style={{ color: '#EF4444', boxShadow: '0 4px 0 0 rgba(0,0,0,0.15)' }}
                   >
                     閱讀更多 →
                   </Link>
@@ -91,7 +91,7 @@ export default function ArticleCard({ article, onReadMore, isLoggedIn, variant =
                   <button
                     onClick={onReadMore}
                     className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-white font-black text-sm transition-all hover:scale-105 active:scale-95"
-                    style={{ color: '#7C3AED', boxShadow: '0 4px 0 0 rgba(0,0,0,0.15)' }}
+                    style={{ color: '#EF4444', boxShadow: '0 4px 0 0 rgba(0,0,0,0.15)' }}
                   >
                     <Lock className="w-4 h-4" />
                     閱讀更多
@@ -181,7 +181,7 @@ export default function ArticleCard({ article, onReadMore, isLoggedIn, variant =
         </div>
 
         {/* Title */}
-        <h3 className="text-base font-black text-gray-800 mb-2 leading-snug line-clamp-2 group-hover:text-purple-700 transition-colors">
+        <h3 className="text-base font-black text-gray-800 mb-2 leading-snug line-clamp-2 group-hover:text-red-600 transition-colors">
           {article.title}
         </h3>
 

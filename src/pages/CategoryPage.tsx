@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useParams, Link } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 import { useAuth } from '../context/AuthContext';
@@ -28,8 +29,8 @@ const CATEGORY_CONFIG: Record<string, {
   },
   international: {
     emoji: '🌍',
-    gradient: 'linear-gradient(135deg, #7C3AED, #06B6D4)',
-    shadow: '0 4px 0 0 #5B21B6',
+    gradient: 'linear-gradient(135deg, #8B5CF6, #06B6D4)',
+    shadow: '0 4px 0 0 #6D28D9',
     desc: '環遊世界，探索地球每個角落的新鮮事！',
   },
 };
@@ -74,8 +75,23 @@ export default function CategoryPage() {
 
   const loggedIn = !!user;
 
+  const categoryTitle = CATEGORY_LABELS[category as string] || category;
+  const categoryDesc: Record<string, string> = {
+    hong_kong: '香港本地新聞，包括社會、教育、交通及社區大小事。專為香港小學生設計。',
+    china: '中國各地最新動態和精彩故事，讓小朋友了解神州大地的多元文化。',
+    international: '環遊世界，探索地球每個角落的新鮮事。國際新聞雙語版本。',
+  };
+
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#FFF9F0' }}>
+      <Helmet>
+        <title>{categoryTitle} | SNK Kids 小小新聞通</title>
+        <meta name="description" content={categoryDesc[category as string] || `SNK Kids 小小新聞通 — ${categoryTitle}新聞，中英雙語，培養批判性思維。`} />
+        <meta property="og:title" content={`${categoryTitle} | SNK Kids 小小新聞通`} />
+        <meta property="og:description" content={categoryDesc[category as string] || `SNK Kids ${categoryTitle}新聞`} />
+        <meta property="og:url" content={`https://www.snkkids.com/category/${category}`} />
+        <link rel="canonical" href={`https://www.snkkids.com/category/${category}`} />
+      </Helmet>
       <AuthModal isOpen={authModalOpen} onClose={() => setAuthModalOpen(false)} />
 
       {/* Hero Header */}
