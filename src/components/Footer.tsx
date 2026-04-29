@@ -97,7 +97,8 @@ export default function Footer() {
             © 2026 SNK Kids. 所有內容僅供教育用途。
           </p>
           <p className="text-xs text-purple-300 font-medium flex items-center gap-1">
-            以 ❤️ 為香港學生製作
+            以 ❤️ 為香港學生製作 |
+            <a href="mailto:snkkidshk@gmail.com" className="hover:text-yellow-300 transition-colors ml-1">snkkidshk@gmail.com</a>
           </p>
         </div>
       </div>
