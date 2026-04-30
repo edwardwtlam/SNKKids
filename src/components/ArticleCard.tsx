@@ -64,7 +64,7 @@ export default function ArticleCard({ article, onReadMore, isLoggedIn, variant =
                   {fun.emoji} {CATEGORY_LABELS[article.category]}
                 </span>
                 <span className="px-3 py-1.5 rounded-full text-xs font-black bg-white/25 text-white backdrop-blur-sm">
-                  {article.language === 'zh' ? '中文' : 'English'}
+                  {article.language === 'zh' ? '🇭🇰 中文' : '🇬🇧 English'}
                 </span>
                 <span className="px-3 py-1.5 rounded-full text-xs font-black bg-white/25 text-white backdrop-blur-sm">
                   ⭐ 精選
@@ -171,7 +171,7 @@ export default function ArticleCard({ article, onReadMore, isLoggedIn, variant =
             {fun.emoji} {CATEGORY_LABELS[article.category]}
           </span>
           <span className="px-2.5 py-1 rounded-full text-xs font-bold bg-gray-100 text-gray-600">
-            {article.language === 'zh' ? '中文' : 'English'}
+            {article.language === 'zh' ? '🇭🇰 中文' : '🇬🇧 English'}
           </span>
           {topicLabel && (
             <span className="px-2.5 py-1 rounded-full text-xs font-bold bg-purple-50 text-purple-600">
