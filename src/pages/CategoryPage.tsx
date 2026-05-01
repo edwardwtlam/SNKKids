@@ -8,6 +8,7 @@ import AuthModal from '../components/AuthModal';
 import type { Article, Category } from '../lib/types';
 import { CATEGORY_LABELS } from '../lib/types';
 import { ArrowLeft } from 'lucide-react';
+import FlagIcon from '../components/FlagIcon';
 
 const CATEGORY_CONFIG: Record<string, {
   emoji: string;
@@ -134,20 +135,21 @@ export default function CategoryPage() {
         <div className="flex items-center gap-2 flex-wrap">
           <span className="text-sm font-black text-gray-600 mr-1">語言篩選：</span>
           {([
-            { value: 'all', label: '🌐 全部' },
-            { value: 'zh', label: '🇭🇰 中文' },
-            { value: 'en', label: '🇬🇧 English' },
-          ] as { value: LangFilter; label: string }[]).map((opt) => (
+            { value: 'all' as LangFilter, flagLang: null, label: '🌐 全部' },
+            { value: 'zh' as LangFilter, flagLang: 'zh' as const, label: '中文' },
+            { value: 'en' as LangFilter, flagLang: 'en' as const, label: 'English' },
+          ]).map((opt) => (
             <button
               key={opt.value}
               onClick={() => setLangFilter(opt.value)}
-              className="px-4 py-2 rounded-2xl text-sm font-bold transition-all hover:scale-105 active:scale-95"
+              className="flex items-center gap-1.5 px-4 py-2 rounded-2xl text-sm font-bold transition-all hover:scale-105 active:scale-95"
               style={
                 langFilter === opt.value
                   ? { background: cfg.gradient, color: 'white', boxShadow: cfg.shadow }
                   : { background: 'white', color: '#6B7280', border: '2px solid #E5E7EB' }
               }
             >
+              {opt.flagLang ? <FlagIcon lang={opt.flagLang} size={16} /> : null}
               {opt.label}
             </button>
           ))}

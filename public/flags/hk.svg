@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600">
+  <rect width="900" height="600" fill="#DE2110"/>
+  <!-- Bauhinia flower - white, centered -->
+  <g transform="translate(450,300)" fill="white">
+    <!-- 5 petals of the bauhinia -->
+    <g transform="rotate(0)">
+      <path d="M0,-120 C20,-80 60,-60 0,-10 C-60,-60 -20,-80 0,-120Z"/>
+      <path d="M0,-120 L5,-95 L-5,-95Z" fill="#DE2110"/>
+    </g>
+    <g transform="rotate(72)">
+      <path d="M0,-120 C20,-80 60,-60 0,-10 C-60,-60 -20,-80 0,-120Z"/>
+      <path d="M0,-120 L5,-95 L-5,-95Z" fill="#DE2110"/>
+    </g>
+    <g transform="rotate(144)">
+      <path d="M0,-120 C20,-80 60,-60 0,-10 C-60,-60 -20,-80 0,-120Z"/>
+      <path d="M0,-120 L5,-95 L-5,-95Z" fill="#DE2110"/>
+    </g>
+    <g transform="rotate(216)">
+      <path d="M0,-120 C20,-80 60,-60 0,-10 C-60,-60 -20,-80 0,-120Z"/>
+      <path d="M0,-120 L5,-95 L-5,-95Z" fill="#DE2110"/>
+    </g>
+    <g transform="rotate(288)">
+      <path d="M0,-120 C20,-80 60,-60 0,-10 C-60,-60 -20,-80 0,-120Z"/>
+      <path d="M0,-120 L5,-95 L-5,-95Z" fill="#DE2110"/>
+    </g>
+  </g>
+</svg>

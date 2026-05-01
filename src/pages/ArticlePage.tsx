@@ -9,6 +9,7 @@ import {
   ArrowLeft, ExternalLink,
   Bookmark, BookmarkCheck, ChevronDown, ChevronUp
 } from 'lucide-react';
+import FlagIcon from '../components/FlagIcon';
 
 const CATEGORY_CONFIG: Record<string, { emoji: string; gradient: string; shadow: string }> = {
   hong_kong: {
@@ -199,8 +200,9 @@ export default function ArticlePage() {
             <span className="px-3 py-1.5 rounded-full text-xs font-black bg-white/25 text-white backdrop-blur-sm">
               {cfg.emoji} {CATEGORY_LABELS[article.category]}
             </span>
-            <span className="px-3 py-1.5 rounded-full text-xs font-black bg-white/25 text-white backdrop-blur-sm">
-              {article.language === 'zh' ? '🇭🇰 中文' : '🇬🇧 English'}
+            <span className="px-3 py-1.5 rounded-full text-xs font-black bg-white/25 text-white backdrop-blur-sm flex items-center gap-1">
+              <FlagIcon lang={article.language as 'zh' | 'en'} size={14} />
+              {article.language === 'zh' ? '中文' : 'English'}
             </span>
             {topicLabel && (
               <span className="px-3 py-1.5 rounded-full text-xs font-black bg-white/25 text-white backdrop-blur-sm">

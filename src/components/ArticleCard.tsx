@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { Lock } from 'lucide-react';
 import type { Article } from '../lib/types';
 import { CATEGORY_LABELS, CATEGORY_COLORS, TOPIC_AREA_LABELS } from '../lib/types';
+import FlagIcon from './FlagIcon';
 
 interface ArticleCardProps {
   article: Article;
@@ -64,7 +65,10 @@ export default function ArticleCard({ article, onReadMore, isLoggedIn, variant =
                   {fun.emoji} {CATEGORY_LABELS[article.category]}
                 </span>
                 <span className="px-3 py-1.5 rounded-full text-xs font-black bg-white/25 text-white backdrop-blur-sm">
-                  {article.language === 'zh' ? '🇭🇰 中文' : '🇬🇧 English'}
+                  <span className="flex items-center gap-1">
+                    <FlagIcon lang={article.language as 'zh' | 'en'} size={14} />
+                    {article.language === 'zh' ? '中文' : 'English'}
+                  </span>
                 </span>
                 <span className="px-3 py-1.5 rounded-full text-xs font-black bg-white/25 text-white backdrop-blur-sm">
                   ⭐ 精選
@@ -171,7 +175,10 @@ export default function ArticleCard({ article, onReadMore, isLoggedIn, variant =
             {fun.emoji} {CATEGORY_LABELS[article.category]}
           </span>
           <span className="px-2.5 py-1 rounded-full text-xs font-bold bg-gray-100 text-gray-600">
-            {article.language === 'zh' ? '🇭🇰 中文' : '🇬🇧 English'}
+            <span className="flex items-center gap-1">
+              <FlagIcon lang={article.language as 'zh' | 'en'} size={14} />
+              {article.language === 'zh' ? '中文' : 'English'}
+            </span>
           </span>
           {topicLabel && (
             <span className="px-2.5 py-1 rounded-full text-xs font-bold bg-purple-50 text-purple-600">
