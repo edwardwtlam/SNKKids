@@ -1,0 +1,40 @@
+name: SNKKids Daily News Refresh
+
+on:
+  schedule:
+    # 9:00 AM HKT = 01:00 UTC
+    - cron: '0 1 * * *'
+    # 2:00 PM HKT = 06:00 UTC
+    - cron: '0 6 * * *'
+  # Allow manual trigger from GitHub Actions UI
+  workflow_dispatch:
+
+jobs:
+  refresh-news:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install openai supabase
+
+      - name: Run news refresh script
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+        run: |
+          python scripts/refresh_news_ci.py
+
+      - name: Report result
+        if: always()
+        run: echo "News refresh completed at $(date -u '+%Y-%m-%d %H:%M UTC')"
