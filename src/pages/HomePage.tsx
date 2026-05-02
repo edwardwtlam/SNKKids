@@ -54,7 +54,8 @@ export default function HomePage() {
         .from('articles')
         .select('*')
         .order('published_at', { ascending: false })
-        .limit(20);
+        .order('created_at', { ascending: false })
+        .limit(60);
       if (data && data.length > 0) {
         const feat = data.find((a: Article) => a.is_featured) || data[0];
         setFeatured(feat);

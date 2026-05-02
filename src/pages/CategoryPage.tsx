@@ -57,7 +57,8 @@ export default function CategoryPage() {
         .select('*')
         .eq('category', category)
         .order('published_at', { ascending: false })
-        .limit(30);
+        .order('created_at', { ascending: false })
+        .limit(60);
 
       if (langFilter !== 'all') {
         query = query.eq('language', langFilter);
