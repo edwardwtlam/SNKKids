@@ -88,9 +88,10 @@ export default function AdminPage() {
     }
 
     // Create CSV content
-    const headers = ['用戶名稱', '顯示名稱', '閱讀連續天數', '總積分', '今日已讀文章', '加入日期'];
-    const rows = users.map(u => [
+    const headers = ['用戶名稱', '電郵', '顯示名稱', '閱讀連續天數', '總積分', '今日已讀文章', '加入日期'];
+    const rows = users.map((u: any) => [
       u.username || '',
+      u.email || '',
       u.display_name || '',
       u.reading_streak || 0,
       u.total_points || 0,
@@ -229,6 +230,7 @@ export default function AdminPage() {
                 <thead>
                   <tr className="bg-gray-50 text-gray-600 text-left">
                     <th className="px-6 py-3 font-medium">用戶名稱</th>
+                    <th className="px-6 py-3 font-medium">電郵</th>
                     <th className="px-6 py-3 font-medium">顯示名稱</th>
                     <th className="px-6 py-3 font-medium text-center">閱讀連續天數</th>
                     <th className="px-6 py-3 font-medium text-center">總積分</th>
@@ -240,6 +242,7 @@ export default function AdminPage() {
                   {users.map(u => (
                     <tr key={u.id} className="hover:bg-gray-50 transition-colors">
                       <td className="px-6 py-4 font-medium text-gray-900">@{u.username}</td>
+                      <td className="px-6 py-4 text-gray-500 text-sm">{(u as any).email || '-'}</td>
                       <td className="px-6 py-4 text-gray-700">{u.display_name}</td>
                       <td className="px-6 py-4 text-center">
                         <span className="inline-flex items-center gap-1 text-orange-600 font-medium">
