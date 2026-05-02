@@ -53,42 +53,19 @@ export default function CategoryPage() {
     const fetchArticles = async () => {
       setLoading(true);
 
-      // Get today's date in HKT (UTC+8) as YYYY-MM-DD
-      const now = new Date();
-      const hktOffset = 8 * 60;
-      const hktDate = new Date(now.getTime() + (hktOffset + now.getTimezoneOffset()) * 60000);
-      const today = hktDate.toISOString().slice(0, 10);
-
-      // First try today's articles for this category
+      // Show ALL articles for this category, sorted by date (newest first)
       let query = supabase
         .from('articles')
         .select('*')
         .eq('category', category)
-        .eq('published_at', today)
+        .order('published_at', { ascending: false })
         .order('created_at', { ascending: false });
 
       if (langFilter !== 'all') {
         query = query.eq('language', langFilter);
       }
 
-      let { data } = await query;
-
-      // If no articles today, fall back to most recent
-      if (!data || data.length === 0) {
-        let fallbackQuery = supabase
-          .from('articles')
-          .select('*')
-          .eq('category', category)
-          .order('published_at', { ascending: false })
-          .order('created_at', { ascending: false })
-          .limit(30);
-        if (langFilter !== 'all') {
-          fallbackQuery = fallbackQuery.eq('language', langFilter);
-        }
-        const fallback = await fallbackQuery;
-        data = fallback.data;
-      }
-
+      const { data } = await query;
       setArticles(data || []);
       setLoading(false);
     };
