@@ -50,12 +50,30 @@ export default function HomePage() {
 
   useEffect(() => {
     const fetchArticles = async () => {
-      const { data } = await supabase
+      // Get today's date in HKT (UTC+8) as YYYY-MM-DD
+      const now = new Date();
+      const hktOffset = 8 * 60; // HKT is UTC+8
+      const hktDate = new Date(now.getTime() + (hktOffset + now.getTimezoneOffset()) * 60000);
+      const today = hktDate.toISOString().slice(0, 10);
+
+      // First try to fetch today's articles
+      let { data } = await supabase
         .from('articles')
         .select('*')
-        .order('published_at', { ascending: false })
-        .order('created_at', { ascending: false })
-        .limit(60);
+        .eq('published_at', today)
+        .order('created_at', { ascending: false });
+
+      // If no articles today, fall back to the most recent available date
+      if (!data || data.length === 0) {
+        const fallback = await supabase
+          .from('articles')
+          .select('*')
+          .order('published_at', { ascending: false })
+          .order('created_at', { ascending: false })
+          .limit(30);
+        data = fallback.data;
+      }
+
       if (data && data.length > 0) {
         const feat = data.find((a: Article) => a.is_featured) || data[0];
         setFeatured(feat);
