@@ -12,12 +12,36 @@ Generates 6 articles per run:
 """
 import os
 import json
+import re
 import random
 import logging
 import sys
 from datetime import datetime, timezone, timedelta
 from openai import OpenAI
 from supabase import create_client, Client
+
+def repair_json(raw: str) -> dict:
+    """Attempt multiple strategies to parse potentially malformed JSON."""
+    # Strategy 1: direct parse
+    try:
+        return json.loads(raw)
+    except json.JSONDecodeError:
+        pass
+    # Strategy 2: extract JSON object between first { and last }
+    try:
+        start = raw.index('{')
+        end = raw.rindex('}') + 1
+        return json.loads(raw[start:end])
+    except (ValueError, json.JSONDecodeError):
+        pass
+    # Strategy 3: try json-repair if available
+    try:
+        from json_repair import repair_json as jrepair
+        return json.loads(jrepair(raw))
+    except Exception:
+        pass
+    # Strategy 4: raise so caller can retry
+    raise json.JSONDecodeError("All repair strategies failed", raw, 0)
 
 # ── Configuration — read from environment variables ────────────────────────────
 SUPABASE_URL              = os.environ["SUPABASE_URL"]
@@ -194,20 +218,36 @@ Return ONLY valid JSON."""
     )
     content = response.choices[0].message.content
     try:
-        return json.loads(content)
+        return repair_json(content)
     except json.JSONDecodeError:
-        log.warning("JSON parse failed on first attempt, retrying...")
+        log.warning("JSON parse failed on first attempt, retrying with lower temperature...")
         retry_response = client.chat.completions.create(
             model="deepseek-chat",
             messages=[
                 {"role": "system", "content": SYSTEM_PROMPT},
                 {"role": "user",   "content": user_prompt + "\n\nCRITICAL: Your previous response had a JSON syntax error. Return ONLY valid, complete JSON. No truncation."},
             ],
-            temperature=0.5,
+            temperature=0.3,
             max_tokens=8192,
             response_format={"type": "json_object"},
         )
-        return json.loads(retry_response.choices[0].message.content)
+        retry_content = retry_response.choices[0].message.content
+        try:
+            return repair_json(retry_content)
+        except json.JSONDecodeError:
+            log.warning("Second attempt also failed, trying OpenAI GPT-4.1-mini as fallback...")
+            openai_client = OpenAI()  # uses OPENAI_API_KEY env var
+            fallback_response = openai_client.chat.completions.create(
+                model="gpt-4.1-mini",
+                messages=[
+                    {"role": "system", "content": SYSTEM_PROMPT},
+                    {"role": "user",   "content": user_prompt},
+                ],
+                temperature=0.7,
+                max_tokens=8192,
+                response_format={"type": "json_object"},
+            )
+            return repair_json(fallback_response.choices[0].message.content)
 
 def build_article_row(result: dict, category_key: str, language: str) -> dict:
     """Build the Supabase articles table row from the DeepSeek result."""

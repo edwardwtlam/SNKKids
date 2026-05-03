@@ -29,13 +29,15 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install openai supabase
+          pip install openai supabase json-repair
 
       - name: Run news refresh script
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_BASE_URL: https://api.openai.com/v1
         run: |
           python scripts/refresh_news_ci.py
 
