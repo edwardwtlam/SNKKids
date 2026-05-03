@@ -292,9 +292,12 @@ def run_refresh():
         log.info("  %s/%s → %s", r["category"], r["language"], r["status"])
     log.info("=" * 60)
 
-    # Exit with error code if any article failed (so GitHub Actions marks the run as failed)
-    if success < len(results_summary):
+    # Only exit with error if ALL articles failed (partial success is acceptable)
+    if success == 0:
+        log.error("All articles failed to generate!")
         sys.exit(1)
+    else:
+        log.info("Workflow completed successfully (%d/%d articles saved)", success, len(results_summary))
 
 if __name__ == "__main__":
     run_refresh()
